@@ -1,0 +1,18 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+    user-select: none;
+    overflow-x: hidden;
+}
+
+body {
+    background-color: var(--main-background);
+    height: 100%;
+    font-family: Montserrat, sans-serif;
+}
+
+.main {
+    font-family: Lora, sans-serif;
+    color: var(--main-text);
+}

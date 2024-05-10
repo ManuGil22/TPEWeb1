@@ -1,0 +1,45 @@
+.main {
+    margin: 20px;
+    margin-top: 120px;
+}
+
+.table-container {
+    overflow-x: auto;
+}
+
+th {
+    background-color: var(--table-header-background);
+    color: var(--table-header-text);
+}
+
+tbody {
+    background-color: var(--table-background);
+    color: var(--table-text);
+}
+
+table, td, tr, th {
+    border: 1px solid var(--table-border);
+    border-collapse: collapse;
+}
+
+table{
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px;
+}
+ 
+
+@media (min-width: 700px) {
+    .title-section {
+        display: flex;
+    }
+    th, td {
+        padding: 15px 20px;
+    }
+    .table-container {
+        display: flex;
+        justify-content: center;
+    }
+}    

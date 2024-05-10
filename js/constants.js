@@ -1,0 +1,66 @@
+/* RESOURCES */
+const DOWNLOAD_ICON = "assets/icons/file.svg";
+const unit1ListItems = [
+    {
+        'href': 'https://moodle.exa.unicen.edu.ar/mod/page/view.php?id=68731',
+        'description': 'Introducción a HTML y CSS'
+    },
+    {
+        'href': 'https://moodle.exa.unicen.edu.ar/mod/page/view.php?id=68746',
+        'description': 'Sitio web completo'
+    },
+    {
+        'href': 'https://moodle.exa.unicen.edu.ar/mod/page/view.php?id=68736',
+        'description': 'Layouts & Box Model'
+    },
+    {
+        'href': 'https://moodle.exa.unicen.edu.ar/mod/page/view.php?id=68741',
+        'description': 'Tablas y Formularios'
+    },
+    {
+        'href': 'https://moodle.exa.unicen.edu.ar/mod/page/view.php?id=68751',
+        'description': 'JavaScript#1'
+    },
+    {
+        'href': 'https://moodle.exa.unicen.edu.ar/mod/page/view.php?id=68757',
+        'description': 'CSS Parte 2 (Herencia y Cascada)'
+    },
+    {
+        'href': 'https://moodle.exa.unicen.edu.ar/mod/page/view.php?id=68762',
+        'description': 'Formularios con JS'
+    }
+]
+const unit2ListItems = [
+    {
+        'href': 'https://moodle.exa.unicen.edu.ar/mod/page/view.php?id=68776',
+        'description': 'Javascript #2 Parte I'
+    },
+    {
+        'href': 'https://moodle.exa.unicen.edu.ar/mod/page/view.php?id=68781',
+        'description': 'Semántica Web'
+    },
+    {
+        'href': 'https://moodle.exa.unicen.edu.ar/mod/page/view.php?id=68786',
+        'description': 'Diseño Responsive'
+    },
+    {
+        'href': 'https://moodle.exa.unicen.edu.ar/mod/page/view.php?id=68792',
+        'description': 'Javascript #3 Parte I'
+    },
+    {
+        'href': 'https://moodle.exa.unicen.edu.ar/mod/page/view.php?id=68798',
+        'description': 'HTML5 y CSS3'
+    }
+]
+
+/* STUDENTS */
+const fakeRandomNames = ['Juan', 'María', 'Luis', 'Ana', 'Pedro', 'Laura', 'Carlos', 'Sofía', 'Diego', 'Manuel', 'Nicolas', 'Camila'];
+const fakeRandomLastnames = ['González', 'Rodríguez', 'Gómez', 'Fernández', 'López', 'Martínez', 'Pérez', 'García', 'Sánchez', 'Díaz'];
+const fakeRandomComission = ['A', 'B', 'C'];
+const fakeRandomComissionNumber = ['1', '2', '3', '4'];
+const TABLE_COLUMNS = 5;
+const STUDENT_ATTRIBUTES = ['dni', 'name', 'lastname', 'comission', 'mail'];
+
+/* CONTACT */
+const CAPTCHA_LENGTH = 8;
+const CAPTCHA_OPTIONS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNPQRSTUVWXYZ123456789";

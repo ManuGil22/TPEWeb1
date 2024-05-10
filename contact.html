@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link
+            href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+            rel="stylesheet">
+        <link rel="stylesheet" href="css/theming.css">
+        <link rel="stylesheet" href="css/styles.css">
+        <link rel="stylesheet" href="css/header.css">
+        <link rel="stylesheet" href="css/contact.css">
+        <title>Contacto</title>
+    </head>
+
+    <body id="body" class="light-theme">
+        <header-component></header-component>
+
+        <main class="main">
+            <div class="contact bordered-item">
+                <form class="contact-form" id="form" method="POST">
+                    <section class="form-section">
+                        <label for="email-input">Email: </label>
+                        <input class="form-input bordered-item" type="email" name="email" id="email-input"
+                            placeholder="Email" value="" required>
+                    </section>
+                    <section class="form-section">
+                        <label for="fullname-input">Nombre: </label>
+                        <input class="form-input bordered-item" type="text" name="fullname" id="fullname-input"
+                            placeholder="Nombre completo" value="" required>
+                    </section>
+                    <section class="form-section">
+                        <label for="captcha-input">CAPTCHA: </label>
+                        <div class="captcha bordered-item">
+                            <p class="captcha-text"></p>
+                            <img class="theme-icon captcha-refresh-icon" src="assets/icons/refresh-icon.svg">
+                        </div>
+                        <input class="form-input bordered-item" type="text" name="captcha" id="captcha-input"
+                            placeholder="Inserte los digitos alfanumericos" value="" required>
+                        <p class="captcha-error hide">Captcha erroneo, reintentar.</p>
+                    </section>
+
+                    <button class="btn" type="submit">Contactame</button>
+                </form>
+
+                <dialog id="dialog" class="dialog bordered-item">
+                    <p>Muchas gracias! Pronto serás contactado!</p>
+                    <div class="btn-container">
+                        <button id="close-btn" class="btn">Cerrar</button>
+                    </div>
+                </dialog>
+            </div>
+        </main>
+
+        <script src="js/constants.js"></script>
+        <script src="js/header.js"></script>
+        <script src="js/contact.js"></script>
+    </body>
+
+</html>

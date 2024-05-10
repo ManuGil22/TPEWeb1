@@ -1,0 +1,119 @@
+.main {
+    padding: 20px;
+    margin-top: 40px;
+}
+
+.bordered-item {
+    padding: 10px;
+    border: var(--border) 1px solid;
+    border-radius: 5px;
+    background-color: var(--background);
+    color: var(--text);
+}
+
+.contact {
+    margin: 40px 10px 10px 10px;
+    border-radius: 10px;
+    border: var(--primary-darker) 1px solid;
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+}
+
+.form-section {
+    gap: 5px;
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0;
+}
+
+.form-input {
+    padding: 8px 15px;
+    user-select: text;
+}
+
+.form-input:focus {
+    outline: none;
+}
+
+.btn {
+    margin-top: 20px;
+    width: fit-content;
+    align-self: center;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 5px;
+    border: var(--btn-border) 1px solid;
+    background-color: var(--btn-background);
+    color: var(--btn-text);
+}
+
+.captcha {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0;
+    width: fit-content;
+    align-self: center;
+    color: var(--captcha);
+    border: var(--captcha) 1px solid;
+    letter-spacing: 0.3rem;
+}
+
+.captcha-error {
+    display: flex;
+    margin-top: 10px;
+    color: var(--captcha-error);
+}
+
+.captcha-refresh-icon {
+    width: 25px;
+    height: 25px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.btn-container {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.dialog {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.dialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+@media (min-width: 700px) {
+    .btn:hover {
+        border: var(--btn-hover-border) 1px solid;
+        background-color: var(--btn-hover-background);
+        color: var(--btn-hover-text);
+    }
+    .main {
+        height: calc(100vh - 100px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .contact {
+        width: 450px;
+    }
+    .title-section {
+        display: flex;
+    }
+}
+
+.hide {
+    display: none;
+}
