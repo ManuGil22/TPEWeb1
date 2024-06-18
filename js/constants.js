@@ -54,12 +54,9 @@ const unit2ListItems = [
 ]
 
 /* STUDENTS */
-const fakeRandomNames = ['Juan', 'María', 'Luis', 'Ana', 'Pedro', 'Laura', 'Carlos', 'Sofía', 'Diego', 'Manuel', 'Nicolas', 'Camila'];
-const fakeRandomLastnames = ['González', 'Rodríguez', 'Gómez', 'Fernández', 'López', 'Martínez', 'Pérez', 'García', 'Sánchez', 'Díaz'];
-const fakeRandomComission = ['A', 'B', 'C'];
-const fakeRandomComissionNumber = ['1', '2', '3', '4'];
-const TABLE_COLUMNS = 5;
 const STUDENT_ATTRIBUTES = ['dni', 'name', 'lastname', 'comission', 'mail'];
+const TABLE_COLUMNS = STUDENT_ATTRIBUTES.length;
+const MAIL_COLUMN = STUDENT_ATTRIBUTES.indexOf('mail');
 
 /* CONTACT */
 const CAPTCHA_LENGTH = 8;

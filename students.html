@@ -19,6 +19,10 @@
 
         <main class="main">
 
+            <div class="actions-container">
+                <button id="add-btn" class="btn add-btn" type="submit">Agregar alumno</button>
+            </div>
+
             <div class="table-container">
                 <table>
                     <thead>
@@ -28,12 +32,68 @@
                             <th>Apellido</th>
                             <th>Comision</th>
                             <th>Email</th>
+                            <th>Editar</th>
+                            <th>Eliminar</th>
                         </tr>
                     </thead>
                     <tbody class="table-content">
                     </tbody>
                 </table>
             </div>
+
+            <dialog id="student-dialog" class="dialog bordered-item">
+                <h2 id="student-dialog-text"></h2>
+                <form class="student-form" id="student-form" method="POST">
+                    <section class="form-section">
+                        <label for="dni-input">DNI: </label>
+                        <input class="form-input bordered-item" type="number" name="dni" id="dni-input"
+                            placeholder="DNI" value="" required>
+                    </section>
+                    <section class="form-section">
+                        <label for="name-input">Nombre: </label>
+                        <input class="form-input bordered-item" type="text" name="name" id="name-input"
+                            placeholder="Nombre" value="" required>
+                    </section>
+                    <section class="form-section">
+                        <label for="lastname-input">Apellido: </label>
+                        <input class="form-input bordered-item" type="text" name="lastname" id="lastname-input"
+                            placeholder="Apellido" value="" required>
+                    </section>
+                    <section class="form-section">
+                        <label for="comission-input">Comision: </label>
+                        <input class="form-input bordered-item" type="text" name="comission" id="comission-input"
+                            placeholder="Comision" value="" required>
+                    </section>
+                    <section class="form-section">
+                        <label for="email-input">Email: </label>
+                        <input class="form-input bordered-item" type="email" name="email" id="email-input"
+                            placeholder="Email" value="" required>
+                    </section>
+                    <div class="btn-container">
+                        <button id="edit-btn" class="btn" type="submit">Guardar</button>
+                        <button id="close-btn" class="btn" type="button">Cerrar</button>
+                    </div>
+                </form>
+            </dialog>
+
+            <dialog id="message-dialog" class="dialog message-dialog bordered-item">
+                <div class="dialog-content-centered">
+                    <p id="message"></p>
+                </div>
+                <div class="btn-container">
+                    <button id="close-message-btn" class="btn" type="button">Cerrar</button>
+                </div>
+            </dialog>
+
+            <dialog id="delete-dialog" class="dialog delete-dialog bordered-item">
+                <div class="dialog-content-centered">
+                    <p id="delete-message">Está seguro que desea borrar al alumno?</p>
+                </div>
+                <div class="btn-container">
+                    <button id="close-delete-btn" class="btn" type="button">No, volver</button>
+                    <button id="accept-delete-btn" class="btn" type="button">Si, borrar</button>
+                </div>
+            </dialog>
         </main>
 
         <script src="js/constants.js"></script>
