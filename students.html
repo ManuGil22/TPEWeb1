@@ -19,8 +19,9 @@
 
         <main class="main">
 
-            <div class="actions-container">
+            <div class="btn-container actions-container">
                 <button id="add-btn" class="btn add-btn" type="submit">Agregar alumno</button>
+                <button id="add-mult-btn" class="btn add-btn" type="submit">Agregar multiples alumnos</button>
             </div>
 
             <div class="table-container">
@@ -39,6 +40,21 @@
                     <tbody class="table-content">
                     </tbody>
                 </table>
+            </div>
+
+            <div class="paginator-container">
+                <div class="paginator-info">
+                    <select id="paginator-select" class="form-input bordered-item" name="paginator-select">
+                        <option value="10" selected>10</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                    </select>
+                    <p id="page-number"></p>
+                </div>
+                <div class="btn-container">
+                    <button id="previous-btn" class="btn disabled" type="button">Anterior</button>
+                    <button id="next-btn" class="btn" type="button">Siguiente</button>
+                </div>
             </div>
 
             <dialog id="student-dialog" class="dialog bordered-item">
@@ -93,6 +109,21 @@
                     <button id="close-delete-btn" class="btn" type="button">No, volver</button>
                     <button id="accept-delete-btn" class="btn" type="button">Si, borrar</button>
                 </div>
+            </dialog>
+
+            <dialog id="mult-add-dialog" class="dialog bordered-item">
+                <h2 id="mult-add-dialog-text">Agregar multiples alumnos</h2>
+                <form class="mult-add-form" id="mult-add-form" method="POST">
+                    <section class="form-section">
+                        <label for="quantity-input">Cuantos alumnos desea agregar?: </label>
+                        <input class="form-input bordered-item" type="number" name="quantity" id="quantity-input"
+                            placeholder="# de alumnos" value="" required min="1" max="10">
+                    </section>
+                    <div class="btn-container">
+                        <button id="add-students-btn" class="btn" type="submit">Agregar alumnos</button>
+                        <button id="back-btn" class="btn" type="button">Volver</button>
+                    </div>
+                </form>
             </dialog>
         </main>
 
