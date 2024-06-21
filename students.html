@@ -20,9 +20,13 @@
         <main class="main">
 
             <div class="btn-container actions-container">
-                <button id="add-btn" class="btn add-btn" type="submit">Agregar alumno</button>
-                <button id="add-mult-btn" class="btn add-btn" type="submit">Agregar multiples alumnos</button>
+                <button id="add-btn" class="btn add-btn" type="button">Agregar alumno</button>
+                <button id="add-mult-btn" class="btn add-btn" type="button">Agregar multiples alumnos</button>
+                <button id="add-filters-btn" class="btn add-btn" type="button">Agregar filtros</button>
+                <button id="remove-filters-btn" class="btn add-btn" type="button">Borrar filtros</button>
             </div>
+
+            <p id="active-filters" class="active-filters"></p>
 
             <div class="table-container">
                 <table>
@@ -48,6 +52,7 @@
                         <option value="10" selected>10</option>
                         <option value="25">25</option>
                         <option value="50">50</option>
+                        <option value="100">100</option>
                     </select>
                     <p id="page-number"></p>
                 </div>
@@ -122,6 +127,41 @@
                     <div class="btn-container">
                         <button id="add-students-btn" class="btn" type="submit">Agregar alumnos</button>
                         <button id="back-btn" class="btn" type="button">Volver</button>
+                    </div>
+                </form>
+            </dialog>
+
+            <dialog id="filters-dialog" class="dialog bordered-item">
+                <h2 id="filters-dialog-text">Agregar filtros</h2>
+                <form class="student-form" id="filters-form" method="POST">
+                    <section class="form-section">
+                        <label for="filter-dni-input">DNI: </label>
+                        <input class="form-input bordered-item" type="number" name="dni" id="filter-dni-input"
+                            placeholder="DNI" value="">
+                    </section>
+                    <section class="form-section">
+                        <label for="filter-name-input">Nombre: </label>
+                        <input class="form-input bordered-item" type="text" name="name" id="filter-name-input"
+                            placeholder="Nombre" value="">
+                    </section>
+                    <section class="form-section">
+                        <label for="filter-lastname-input">Apellido: </label>
+                        <input class="form-input bordered-item" type="text" name="lastname" id="filter-lastname-input"
+                            placeholder="Apellido" value="">
+                    </section>
+                    <section class="form-section">
+                        <label for="filter-comission-input">Comision: </label>
+                        <input class="form-input bordered-item" type="text" name="comission" id="filter-comission-input"
+                            placeholder="Comision" value="">
+                    </section>
+                    <section class="form-section">
+                        <label for="filter-email-input">Email: </label>
+                        <input class="form-input bordered-item" type="email" name="email" id="filter-email-input"
+                            placeholder="Email" value="">
+                    </section>
+                    <div class="btn-container">
+                        <button id="filter-btn" class="btn" type="submit">Filtrar</button>
+                        <button id="close-filters-btn" class="btn" type="button">Cerrar</button>
                     </div>
                 </form>
             </dialog>

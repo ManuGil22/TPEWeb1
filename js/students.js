@@ -2,12 +2,6 @@ document.addEventListener("DOMContentLoaded", setUpStudentsPage);
 
 async function setUpStudentsPage() {
     const studentForm = document.querySelector("#student-form");
-    let dniInput = document.querySelector("#dni-input");
-    let nameInput = document.querySelector("#name-input");
-    let lastnameInput = document.querySelector("#lastname-input");
-    let comissionInput = document.querySelector("#comission-input");
-    let emailInput = document.querySelector("#email-input");
-    let quantityInput = document.querySelector("#quantity-input");
     const addBtn = document.querySelector("#add-btn");
     const addMultBtn = document.querySelector("#add-mult-btn");
     const addStudentsBtn = document.querySelector("#add-students-btn");
@@ -27,33 +21,34 @@ async function setUpStudentsPage() {
     const paginatorPreviousBtn = document.querySelector('#previous-btn');
     const paginatorNextBtn = document.querySelector('#next-btn');
     const pageNumberMessage = document.querySelector('#page-number');
+    const filtersForm = document.querySelector("#filters-form");
+    const filtersDialog = document.querySelector("#filters-dialog");
+    const addFiltersBtn = document.querySelector("#add-filters-btn");
+    const removeFiltersBtn = document.querySelector("#remove-filters-btn");
+    const closeFiltersBtn = document.querySelector('#close-filters-btn');
+    let activeFiltersMessage = document.querySelector("#active-filters");
+    let tableContent = document.querySelector('.table-content');
+    let quantityInput = document.querySelector("#quantity-input");
 
     const BASE_URL = new URL('https://667084cf0900b5f8724aedcb.mockapi.io/api/students');
     let studentsData;
     let paginatorPage = 1;
     let newStudent = {};
     let studentToDelete;
+    let filters = {};
 
     studentForm.addEventListener('submit', handleSubmit);
     addBtn.addEventListener('click', openAddStudentDialog);
-    addMultBtn.addEventListener('click', () => {
-        multAddDialog.showModal();
-    });
+    addMultBtn.addEventListener('click', () => multAddDialog.showModal());
     addStudentsBtn.addEventListener('click', handleMultiAdd);
-    backBtn.addEventListener('click', () => {
-        multAddDialog.close();
-    });
+    backBtn.addEventListener('click', () => multAddDialog.close());
     studentDialogCloseBtn.addEventListener('click', () => {
         newStudent = {};
         setDataToForm();
         studentDialog.close();
     });
-    messageDialogCloseBtn.addEventListener('click', () => {
-        messageDialog.close();
-    });
-    closeDeleteBtn.addEventListener('click', () => {
-        deleteDialog.close();
-    });
+    messageDialogCloseBtn.addEventListener('click', () => messageDialog.close());
+    closeDeleteBtn.addEventListener('click', () => deleteDialog.close());
     acceptDeleteBtn.addEventListener('click', handleDelete);
 
     paginatorSelect.addEventListener("change", () => {
@@ -63,6 +58,11 @@ async function setUpStudentsPage() {
     });
     paginatorPreviousBtn.addEventListener('click', handlePreviousBtn);
     paginatorNextBtn.addEventListener('click', handleNextBtn);
+
+    filtersForm.addEventListener('submit', handleFilter);
+    addFiltersBtn.addEventListener('click', () => filtersDialog.showModal());
+    removeFiltersBtn.addEventListener('click', removeFilters);
+    closeFiltersBtn.addEventListener('click', () => filtersDialog.close());
 
     function handlePreviousBtn() {
         enableBtn(paginatorNextBtn);
@@ -158,45 +158,33 @@ async function setUpStudentsPage() {
         BASE_URL.searchParams.delete('limit');
     }
 
-    function populateTable() {
-        let tableContent = document.querySelector('.table-content');
+    function populateTable(populateData) {
         tableContent.innerHTML = '';
         let newRow;
         let newColumn;
         let attribute;
-        if(studentsData.length) {
-            for (let index = 0; index < studentsData.length; index++) {
+        if(populateData.length) {
+            for (let index = 0; index < populateData.length; index++) {
                 newRow = document.createElement('tr');
                 for (let column = 0; column < TABLE_COLUMNS; column++){
                     attribute = STUDENT_ATTRIBUTES[column];
                     newColumn = document.createElement('td');
-                    newColumn.innerHTML = studentsData[index][attribute];
+                    newColumn.innerHTML = populateData[index][attribute];
                     newRow.appendChild(newColumn);
                 }
-                newRow.appendChild(createEditColumn());
-                newRow.appendChild(createDeleteColumn());
+                newRow.appendChild(createColumn("edit-btn", "assets/icons/edit.svg"));
+                newRow.appendChild(createColumn("delete-btn", "assets/icons/delete.svg"));
                 tableContent.appendChild(newRow);
             }
             addBtnsActions();
         }
     }
 
-    function createEditColumn() {
+    function createColumn(className, src) {
         let newIcon = document.createElement("img");
-        newIcon.classList.add("edit-btn");
+        newIcon.classList.add(className);
         newIcon.classList.add("icon");
-        newIcon.src = "assets/icons/edit.svg";
-
-        newColumn = document.createElement('td');
-        newColumn.appendChild(newIcon); 
-        return newColumn;
-    }
-
-    function createDeleteColumn() {
-        let newIcon = document.createElement("img");
-        newIcon.classList.add("delete-btn");
-        newIcon.classList.add("icon");
-        newIcon.src = "assets/icons/delete.svg";
+        newIcon.src = src;
 
         newColumn = document.createElement('td');
         newColumn.appendChild(newIcon); 
@@ -228,19 +216,19 @@ async function setUpStudentsPage() {
     }
 
     function setDataToForm(data) {
-        dniInput.value = data ? data.dni : null;
-        nameInput.value = data ? data.name : null;
-        lastnameInput.value = data ? data.lastname : null;
-        comissionInput.value = data ? data.comission : null;
-        emailInput.value = data ? data.mail : null;
+        studentForm.dni.value = data ? data.dni : null;
+        studentForm.name.value = data ? data.name : null;
+        studentForm.lastname.value = data ? data.lastname : null;
+        studentForm.comission.value = data ? data.comission : null;
+        studentForm.email.value = data ? data.mail : null;
     }
 
-    function getStudentDataFromForm() {
-        newStudent.dni = dniInput.value;
-        newStudent.name = nameInput.value;
-        newStudent.lastname = lastnameInput.value;
-        newStudent.comission = comissionInput.value;
-        newStudent.mail = emailInput.value;
+    function getStudentDataFromForm(newStudentData) {
+        newStudent.dni = newStudentData.get("dni");
+        newStudent.name = newStudentData.get("name");
+        newStudent.lastname = newStudentData.get("lastname");
+        newStudent.comission = newStudentData.get("comission");
+        newStudent.mail = newStudentData.get("email");
     }
 
     function showMessage(msg) {
@@ -250,13 +238,79 @@ async function setUpStudentsPage() {
 
     async function handleSubmit(e) {
         e.preventDefault();
+        let newStudentData = new FormData(studentForm);
         if (Object.keys(newStudent).length > 0) {
-            getStudentDataFromForm();
+            getStudentDataFromForm(newStudentData);
             handleEdit();
         } else {
-            getStudentDataFromForm();
+            getStudentDataFromForm(newStudentData);
             handleAdd(newStudent);
         }
+    }
+
+    function handleFilter(e) {
+        e.preventDefault();
+        applyFilters();
+    }
+
+    function applyFilters() {
+        filters = new FormData(filtersForm);
+        setActiveFiltersMessage();
+        let filteredData = studentsData
+            .filter(student => student.dni.includes(filters.get("dni")))
+            .filter(student => student.name.toLowerCase().includes(filters.get("name").toLowerCase()))
+            .filter(student => student.lastname.toLowerCase().includes(filters.get("lastname").toLowerCase()))
+            .filter(student => student.comission.toLowerCase().includes(filters.get("comission").toLowerCase()))
+            .filter(student => student.mail.toLowerCase().includes(filters.get("email").toLowerCase()))
+        populateTable(filteredData);
+        filtersDialog.close();
+    }
+
+    function setActiveFiltersMessage() {
+        activeFiltersMessage.innerHTML = '';
+        let dniFilter = filters.get("dni");
+        let nameFilter = filters.get("name");
+        let lastnameFilter = filters.get("lastname");
+        let comissionFilter = filters.get("comission");
+        let emailFilter = filters.get("email");
+        let hasFilters = dniFilter.length || nameFilter.length || lastnameFilter.length || comissionFilter.length || emailFilter.length;
+        if (hasFilters) {
+            activeFiltersMessage.appendChild(createMessageThemedText('Filtros activos:'));
+            dniFilter.length ? createFilterText(' - DNI: ', dniFilter) : null;
+            nameFilter.length ? createFilterText(' - Nombre: ', nameFilter) : null;
+            lastnameFilter.length ? createFilterText(' - Apellido: ', lastnameFilter) : null;
+            comissionFilter.length ? createFilterText(' - Comision: ', comissionFilter) : null;
+            emailFilter.length ? createFilterText(' - Email: ', emailFilter) : null;
+        }
+    }
+
+    function createFilterText(filterName, filterValue) {
+        activeFiltersMessage.appendChild(createMessageThemedText(filterName));
+        activeFiltersMessage.appendChild(createMessageNonThemedText(filterValue));
+    }
+
+    function createMessageThemedText(themedText) {
+        let newThemedText = document.createElement("span");
+        newThemedText.classList.add("themed-text");
+        newThemedText.innerHTML = themedText;
+        return newThemedText;
+    }
+
+    function createMessageNonThemedText(text) {
+        let newText = document.createElement("span");
+        newText.classList.add("text");
+        newText.innerHTML = text;
+        return newText;
+    }
+
+    function removeFilters() {
+        filtersForm.dni.value = null;
+        filtersForm.name.value = null;
+        filtersForm.lastname.value = null;
+        filtersForm.comission.value = null;
+        filtersForm.email.value = null;
+        applyFilters();
+        activeFiltersMessage.innerHTML = '';
     }
 
     async function handleEdit() {
@@ -290,7 +344,7 @@ async function setUpStudentsPage() {
         studentsData = await fetchData();
         pageNumberMessage.innerHTML = `Pagina ${paginatorPage} - ${studentsData.length} elementos`;
         studentsData.length < paginatorSelect.value ? disableBtn(paginatorNextBtn) : enableBtn(paginatorNextBtn);
-        populateTable();
+        applyFilters();
     }
 
     function openDeleteConfirmationDialog() {
